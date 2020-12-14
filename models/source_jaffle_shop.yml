@@ -1,0 +1,20 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: A replica of the postgres database
+    database: raw
+    tables:
+      - name: orders
+        description: One record per order
+        columns:
+          - name: id
+            tests:
+              - unique
+              - not_null
+          - name: status
+            description: "{{ doc('order_status') }}"
+            tests:
+              - accepted_values:
+                  values: ['placed', 'shipped', 'completed', 'return_pending', 'returned']
+      - name: customers

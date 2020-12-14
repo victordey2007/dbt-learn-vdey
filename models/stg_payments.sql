@@ -8,6 +8,6 @@ source as (
         coalesce(amount,0) / 100 as amount, -- converting from cents to dollars
         created as created_at,
         _batched_at
-    from raw.stripe.payment
+    from {{ source('stripe', 'payment') }}
 )
 select * from source
